@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useProperties } from "../../Components/Hooks/useProperties.jsx";
 import { PropertiesList } from "../../Components/PropertiesList/PropertiesList.jsx";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Properties() {
     const { properties, loading } = useProperties();
@@ -28,6 +28,11 @@ export default function Properties() {
 
     return (
         <>
+            <div className="navigate-to-admin fixed bottom-3 right-4">
+                <Link to={"admin"}>
+                    <button className="bg-sky-600 text-white px-3 py-1 rounded-md">Admin Side</button>
+                </Link>
+            </div>
             <div className="welcome-badge w-full md:h-96 sm:h-72 h-56">
                 <div className="welcome-data flex justify-center items-center absolute inset-0">
                     <p className="dancing md:text-7xl sm:text-6xl text-4xl text-white">
