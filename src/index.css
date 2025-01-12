@@ -23,7 +23,6 @@
   font-style: normal;
 }
 .welcome-badge {
-  border-radius: 15px;
   position: relative;
   background-image: url("../src/assets/5.jpg");
   background-size: cover;
@@ -41,6 +40,9 @@
   background-image: url("../src/assets/tr.jpg");
 }
 
+.navbar {
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
+}
 @media only screen and (max-width: 950px) {
 }
 
@@ -105,30 +107,29 @@
 
 .slick-dots li button:before {
   font-size: 5px;
-  color: white; /* Change to white for better visibility */
+  color: white; 
 }
 
 .slick-dots li.slick-active button:before {
-  color: #00f; /* Active dot color */
+  color: #00f; 
 }
 
-/* Position arrows absolutely on the image */
 .slick-prev,
 .slick-next {
   position: absolute;
-  top: 50%; /* Center vertically */
+  top: 50%; 
   transform: translateY(-50%);
-  z-index: 10; /* Ensure above the image */
-  font-size: 5px; /* Adjust arrow size */
-  color: white; /* White color for better contrast */
+  z-index: 10; 
+  font-size: 5px; 
+  color: white; 
 }
 
 .slick-prev {
-  left: 10px; /* Position arrow on the left */
+  left: 10px; 
 }
 
 .slick-next {
-  right: 10px; /* Position arrow on the right */
+  right: 10px; 
 }
 @media only screen and (max-width: 1550px) {
   .book {
@@ -147,7 +148,6 @@
     @apply w-full;
   }
   .welcome-badge {
-    border-radius: 15px;
     position: relative;
     background-image: url("../src/assets/5.jpg");
     background-size: cover;
@@ -167,7 +167,6 @@
 
 @media only screen and (max-width: 700px) {
   .welcome-badge {
-    border-radius: 15px;
     position: relative;
     background-image: url("../src/assets/5.jpg");
     background-size: cover;

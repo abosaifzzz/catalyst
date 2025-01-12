@@ -30,8 +30,8 @@ export default function PropertyCard({
         const hours = date.getHours();
         const minutes = date.getMinutes();
         const ampm = hours >= 12 ? "PM" : "AM";
-        const formattedHours = hours % 12 || 12; // Convert to 12-hour format
-        const formattedMinutes = minutes.toString().padStart(2, "0"); // Add leading zero
+        const formattedHours = hours % 12 || 12;
+        const formattedMinutes = minutes.toString().padStart(2, "0");
         return `${formattedHours}:${formattedMinutes} ${ampm}`;
     };
 
@@ -39,13 +39,13 @@ export default function PropertyCard({
 
 
     const settings = {
-        dots: true, // Show navigation dots
-        infinite: true, // Loop through slides
-        speed: 500, // Transition speed
-        slidesToShow: 1, // Show one slide at a time
-        slidesToScroll: 1, // Scroll one slide at a time
-        autoplay: true, // Auto-slide
-        autoplaySpeed: 3000, // Duration for each slide
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
     };
     return <>
         <div onClick={fn} className="property-card cursor-pointer relative h-[420px] shadow-lg hover:shadow-2xl rounded-md group">
@@ -62,6 +62,11 @@ export default function PropertyCard({
                     ))}
 
                 </Slider>
+                <div
+                    className="love absolute rounded-full shadow-lg bottom-4 right-[-2.5rem] flex justify-center items-center w-10 h-10 bg-white/25 border opacity-0 transform transition-all duration-300 group-hover:right-3 group-hover:opacity-100"
+                >
+                    <i className="fa-solid text-gray-200/45 hover:text-red-500 fa-heart"></i>
+                </div>
             </div>
             <div className="card-body  p-3">
 
@@ -99,13 +104,13 @@ export default function PropertyCard({
                     <div className="update-delete flex justify-center gap-2 backdrop-blur-sm items-center absolute right-0 left-0 bottom-0 top-2/3 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-lg rounded-b-md">
                         <button
                             className="px-2 h-9 flex justify-center items-center gap-2 py-2 bg-sky-600 text-white hover:bg-sky-500 rounded-md"
-                            onClick={() => onUpdate()} // Call onUpdate with the current 
+                            onClick={() => onUpdate()}
                         >
                             <i className="fa-solid fa-pen-to-square"></i> Update
                         </button>
                         <button
                             className="px-2 h-9 flex justify-center items-center gap-2 py-2 bg-red-600 text-white hover:bg-red-500 rounded-md"
-                            onClick={() => onDelete()} // Call onDelete with the current property
+                            onClick={() => onDelete()}
                         >
                             <i className="fa-solid fa-trash"></i> Delete
                         </button>

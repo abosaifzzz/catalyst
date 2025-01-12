@@ -7,7 +7,7 @@ export const useProperties = () => {
     const fetchProperties = async () => {
         try {
             const response = await axios.get("https://test.catalystegy.com/public/api/properties");
-            const fetchedProperties = response.data; // Adjust the range if needed
+            const fetchedProperties = response.data;
             setProperties(fetchedProperties);
             setLoading(false);
         } catch (error) {
@@ -16,7 +16,6 @@ export const useProperties = () => {
     };
 
     useEffect(() => {
-        // Fetch properties data from the API
 
 
         fetchProperties();

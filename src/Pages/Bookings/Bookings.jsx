@@ -9,24 +9,23 @@ import toast, { Toaster } from 'react-hot-toast';
 export default function Bookings() {
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [selectedBook, setSelectedBook] = useState(null); // Store property to delete
+    const [selectedBook, setSelectedBook] = useState(null);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [showDeleteForm, setShowDeleteForm] = useState(false); // Control visibility of DeleteForm
+    const [showDeleteForm, setShowDeleteForm] = useState(false);
 
-    const itemsPerPage = 5; // Number of items per page
+    const itemsPerPage = 5;
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentBookings = bookings.slice(indexOfFirstItem, indexOfLastItem);
 
-    // Fetch bookings from the API
     const fetchBookings = async () => {
         try {
             const response = await axios.get("https://test.catalystegy.com/public/api/bookings");
             console.log(response.data);
 
-            setBookings(response.data); // Assuming response.data is the array of bookings
+            setBookings(response.data);
             setLoading(false);
         } catch (error) {
             console.error("Error fetching bookings:", error);
@@ -34,21 +33,14 @@ export default function Bookings() {
     };
 
     useEffect(() => {
-        fetchBookings(); // Fetch bookings on component mount
+        fetchBookings();
     }, []);
-    const handleUpdate = (booking) => {
-        console.log("Update clicked for booking:", booking);
-        // Add logic for updating the booking
-    };
     const handleDelete = (booking) => {
-        console.log("ckiii");
-        console.log(booking);
 
-        setSelectedBook(booking); // Set the property to be deleted
-        setShowDeleteForm(true); // Show the DeleteForm
+        setSelectedBook(booking);
+        setShowDeleteForm(true);
     };
 
-    // Handle delete action
     const confirmDelete = async () => {
         if (!selectedBook) return;
 
@@ -58,9 +50,9 @@ export default function Bookings() {
 
             await axios.delete(`https://test.catalystegy.com/public/api/bookings/${selectedBook.id}`);
             toast.success("Book Deleted Successfully")
-            setShowDeleteForm(false); // Show the DeleteForm
+            setShowDeleteForm(false);
 
-            fetchBookings(); // Refresh bookings after deletion
+            fetchBookings();
         } catch (error) {
             console.error("Error deleting booking:", error);
         }
@@ -70,7 +62,7 @@ export default function Bookings() {
         try {
             await axios.post(`https://test.catalystegy.com/public/api/bookings/${bookingId}/status`, { status: newStatus });
             console.log(`Booking status updated to ${newStatus}`);
-            fetchBookings(); // Refresh the bookings list
+            fetchBookings();
         } catch (error) {
             console.error("Error updating booking status:", error);
         }
@@ -107,7 +99,7 @@ export default function Bookings() {
             {showDeleteForm && (
                 <DeleteForm
                     deleteFn={confirmDelete}
-                    deletedData={selectedBook.property?.name} // Pass the property name
+                    deletedData={selectedBook.property?.name}
                     closeFn={() => { setShowDeleteForm(false) }}
                 />
             )}
@@ -122,7 +114,6 @@ export default function Bookings() {
                             key={index}
                             className="h-[200px] rounded-md flex flex-col justify-center animate-pulse shadow-lg"
                         >
-                            {/* Skeleton content */}
                             <div className="relative flex w-64 animate-pulse gap-2 p-4">
                                 <div className="h-12 w-12 rounded-full bg-slate-400"></div>
                                 <div className="flex-1">
@@ -141,15 +132,14 @@ export default function Bookings() {
                                     booking.property?.images
                                         ? `https://test.catalystegy.com/public/${JSON.parse(booking.property.images)[0]}`
                                         : "default-image.jpg"
-                                } // Replace with actual property image field
+                                }
                                 createdAt={new Date(booking.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) || "N/A"}
-                                propertyName={booking.property?.name || "Unknown Property"} // Replace with actual field
-                                status={booking.status || "N/A"} // Replace with actual field
-                                location={booking.property?.location || "Unknown Location"} // Replace with actual field
-                                price={booking.property?.price || "N/A"} // Replace with actual field
+                                propertyName={booking.property?.name || "Unknown Property"}
+                                status={booking.status || "N/A"}
+                                location={booking.property?.location || "Unknown Location"}
+                                price={booking.property?.price || "N/A"}
                                 startDate={new Date(booking.start_date).toLocaleDateString() || "N/A"}
                                 endDate={new Date(booking.end_date).toLocaleDateString() || "N/A"}
-                                onUpdate={() => handleUpdate(booking)}
                                 onDelete={() => handleDelete(booking)}
                                 onStatusChange={(newStatus) => handleStatusChange(booking.id, newStatus)}
 
@@ -168,8 +158,8 @@ export default function Bookings() {
                     onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                     disabled={currentPage === 1}
                 >
-                            <i className="fa-solid md:hidden block fa-angle-left"></i>
-                            <p className='md:block hidden'>Previous</p>
+                    <i className="fa-solid md:hidden block fa-angle-left"></i>
+                    <p className='md:block hidden'>Previous</p>
 
                 </button>
                 <span className="text-lg">

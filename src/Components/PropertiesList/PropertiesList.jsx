@@ -1,5 +1,5 @@
 import React from "react";
-import PropertyCard from "../PropertyCard/PropertyCard.jsx"; // Assuming you have a PropertyCard component
+import PropertyCard from "../PropertyCard/PropertyCard.jsx";
 
 export const PropertiesList = ({
   properties,
@@ -11,7 +11,6 @@ export const PropertiesList = ({
   onUpdate,
   onDelete,
 }) => {
-  // Calculate the indices for slicing
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentProperties = properties.slice(indexOfFirstItem, indexOfLastItem);
@@ -24,7 +23,6 @@ export const PropertiesList = ({
             key={index}
             className="h-[420px] rounded-md flex flex-col justify-center animate-pulse shadow-lg"
           >
-            {/* Skeleton content */}
             <div className="relative flex w-64 animate-pulse gap-2 p-4">
               <div className="h-12 w-12 rounded-full bg-slate-400"></div>
               <div className="flex-1">
@@ -47,7 +45,7 @@ export const PropertiesList = ({
             price={`${property.price || "N/A"} ${property.currency || ""}`}
             hostName={property.user?.name || "Unknown Host"}
             hostImage={property.user?.profile_image || "default-image-url"}
-            isAdmin={isAdmin} // Show admin actions
+            isAdmin={isAdmin}
             onUpdate={isAdmin ? () => onUpdate(property) : undefined}
             onDelete={isAdmin ? () => onDelete(property) : undefined}
           />

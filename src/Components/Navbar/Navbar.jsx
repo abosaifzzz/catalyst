@@ -3,10 +3,10 @@ import logo from "../../assets/clogo.png"
 
 export default function Navbar() {
     return <>
-        <div className="navbar flex items-center justify-between w-[95%] mt-4 px-4    mx-auto bg-white shadow-lg shadow-slate-100 rounded-md">
+        <div className="navbar flex items-center justify-between w-full  md:px-12 px-4      bg-white shadow-lg shadow-slate-100 rounded-md">
             <div className="left flex gap-5">
                 <div className="logo">
-                    <img src={logo} className='w-20 m-3' alt="" />
+                    <img src={logo} className='md:w-24 w-16 m-3' alt="" />
                 </div>
                 <div className="search w-fit sm:flex hidden h-11 my-auto rounded-2xl bg-slate-100 hover:border hover:border-blue-300 focus-within:border focus-within:border-blue-500">
                     <input type="search" className="h-full px-2 lg:w-96 md:w-72 w-36 rounded-2xl bg-transparent outline-none" />

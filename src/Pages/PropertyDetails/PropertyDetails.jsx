@@ -14,13 +14,13 @@ import toast, { Toaster } from 'react-hot-toast';
 
 
 export default function PropertyDetails() {
-    const { id } = useParams(); // Extract ID from the URL
+    const { id } = useParams(); 
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
-    const [property, setProperty] = useState(null); // State to hold property details
-    const [loading, setLoading] = useState(true); // State for loading
-    useEffect(() => {
+    const [property, setProperty] = useState(null); 
+    const [loading, setLoading] = useState(true); 
+        useEffect(() => {
 
         const fetchPropertyDetails = async () => {
             try {
@@ -35,8 +35,8 @@ export default function PropertyDetails() {
         };
 
         fetchPropertyDetails();
-    }, [id]); // Re-fetch data if the `id` changes
-
+    }, [id]); 
+    
     const handleBooking = async () => {
         if (!startDate) {
             alert('Please select a start date.');
@@ -48,12 +48,11 @@ export default function PropertyDetails() {
             return;
         }
 
-        // Create an object with the required data
         const bookingData = {
             user_id: 745,
-            property_id: id,          // ID from the URL
-            start_date: startDate,   // Start date selected
-            end_date: endDate      // End date selected
+            property_id: id,          
+            start_date: startDate,   
+                        end_date: endDate     
         };
         console.log(bookingData);
 
@@ -112,7 +111,6 @@ export default function PropertyDetails() {
             </div>
 
             <div className="property-images bg-slate-50 rounded-md overflow-hidden mt-5  grid grid-cols-3 gap-2">
-                {/* Video Section */}
                 <div className="shape1 absolute  -right-52">
                     <img src={air} className='md:w-60 w-44' alt="" />
                 </div>
@@ -122,7 +120,6 @@ export default function PropertyDetails() {
                         src={property?.video}
                     ></video>
                 </div>
-                {/* Images Section */}
                 <div className="images col-span-1 grid grid-rows-2 gap-2">
                     {property?.images &&
                         JSON.parse(property?.images).map((image, index) => (
@@ -132,7 +129,7 @@ export default function PropertyDetails() {
                                 src={`https://test.catalystegy.com/public/${image}`}
                                 alt={`Property Image ${index}`}
                                 onError={(e) => {
-                                    e.target.style.display = "none"; // Hide the image if it fails to load
+                                    e.target.style.display = "none"; 
                                 }}
                             />
                         ))}

@@ -18,7 +18,7 @@ export default function Users() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const usersPerPage = 5; // Number of users per page
+    const usersPerPage = 5;
     const [selectedRole, setSelectedRole] = useState("All");
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
@@ -33,10 +33,10 @@ export default function Users() {
 
     const [addFormData, setAddFormData] = useState({
         name: "",
-        role: "client", // Default role
+        role: "client",
         email: "",
         phone: "",
-        profileImage: null, // For the file input
+        profileImage: null,
     });
 
     const handleUpdateClick = (user) => {
@@ -56,29 +56,27 @@ export default function Users() {
         setIsUpdateFormVisible(false);
     };
     const handleInputChange = (e) => {
-        const { name, value, files } = e.target; // Extract name, value, and files from the event
+        const { name, value, files } = e.target;
 
         if (files && files[0]) {
             const file = files[0];
-            const allowedTypes = ["image/jpeg", "image/png"]; // Define valid MIME types
+            const allowedTypes = ["image/jpeg", "image/png"];
 
             if (!allowedTypes.includes(file.type)) {
-                // Show an alert if the file type is invalid
-                alert("Please select a valid image file (JPG or PNG).");
-                return; // Stop further execution
+
+                toast.error("Please select a valid image file (JPG or PNG).")
+                return;
             }
 
-            // Update the form data with the file and its preview URL
             setFormData((prevData) => ({
                 ...prevData,
-                profileImage: file, // Store the actual file for submission
-                profilePreview: URL.createObjectURL(file), // Generate and store the preview URL
+                profileImage: file,
+                profilePreview: URL.createObjectURL(file),
             }));
         } else if (name) {
-            // Handle text/other input fields
             setFormData((prevData) => ({
                 ...prevData,
-                [name]: value, // Dynamically update the specific field
+                [name]: value,
             }));
         } else {
             console.error("Input change event is missing 'name' or 'files'.");
@@ -90,7 +88,6 @@ export default function Users() {
         if (!selectedUser) return;
 
         try {
-            // Create FormData to handle file upload and other data
             const formDataToSend = new FormData();
             formDataToSend.append("name", formData.name);
             formDataToSend.append("role", formData.role);
@@ -98,16 +95,15 @@ export default function Users() {
             formDataToSend.append("phone", formData.phone);
 
             if (formData.profileImage) {
-                formDataToSend.append("profile_image", formData.profileImage); // Append the file
+                formDataToSend.append("profile_image", formData.profileImage);
             }
 
-            // Make the API request
             const response = await axios.post(
                 `https://test.catalystegy.com/public/api/users/${selectedUser.id}`,
                 formDataToSend,
                 {
                     headers: {
-                        "Content-Type": "multipart/form-data", // Required for file uploads
+                        "Content-Type": "multipart/form-data",
                     },
                 }
             );
@@ -115,7 +111,6 @@ export default function Users() {
             fetchUsers()
             console.log("User updated successfully:", response.data);
 
-            // Close the form and refresh the user list if needed
             handleFormClose();
 
         } catch (error) {
@@ -146,15 +141,12 @@ export default function Users() {
 
             console.log("User deleted successfully:", response.data);
 
-            // Optionally update the users list after deletion
             setUsers((prevUsers) => prevUsers.filter((user) => user.id !== selectedUser.id));
             toast.success('User Deleted Successfully')
 
-            // Close the delete form
             setDeleteFormVisible(false);
         } catch (error) {
             console.error("Error deleting user:", error.response || error.message);
-            alert("Failed to delete user. Please try again.");
         }
     };
 
@@ -166,18 +158,17 @@ export default function Users() {
     const handleFileChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
-            const allowedTypes = ["image/jpeg", "image/png"]; // Valid MIME types
+            const allowedTypes = ["image/jpeg", "image/png"];
 
             if (!allowedTypes.includes(file.type)) {
-                alert("Please select a valid image file (JPG or PNG).");
-                return; // Stop further execution if file type is invalid
+                toast.error("Please select a valid image file (JPG or PNG).")
+                return;
             }
 
-            // Update the form data with the file and its preview URL
             setAddFormData({
                 ...addFormData,
-                profileImage: file, // Store the file for submission
-                profilePreview: URL.createObjectURL(file), // Store the preview URL
+                profileImage: file,
+                profilePreview: URL.createObjectURL(file),
             });
         }
     };
@@ -209,7 +200,8 @@ export default function Users() {
 
 
             console.log("User added successfully:", response.data);
-            toggleAddForm(); // Close the form after successful submission
+            toggleAddForm();
+
         } catch (error) {
             toast.error('Faild to add user')
 
@@ -239,7 +231,7 @@ export default function Users() {
             const response = await axios.get(
                 "https://test.catalystegy.com/public/api/users"
             );
-            setUsers(response.data); // Assuming the response data is an array
+            setUsers(response.data);
             setLoading(false);
 
         } catch (error) {
@@ -249,7 +241,6 @@ export default function Users() {
     };
 
     useEffect(() => {
-        // Fetch users from the API
 
 
         fetchUsers();
@@ -339,7 +330,6 @@ export default function Users() {
                             </select>
                         </div>
 
-                        {/* Email Field */}
                         <div className="email flex mt-3 w-full flex-col gap-2">
                             <label className="text-lg">Email:</label>
                             <input
@@ -353,7 +343,6 @@ export default function Users() {
                             />
                         </div>
 
-                        {/* Phone Field */}
                         <div className="phone flex mt-3 w-full flex-col gap-2">
                             <label className="text-lg">Phone:</label>
                             <input
@@ -367,7 +356,6 @@ export default function Users() {
                             />
                         </div>
 
-                        {/* Action Buttons */}
                         <div className="action-btns w-full mt-6 flex justify-between">
                             <button
                                 className="px-6 py-2 bg-gray-600 text-white rounded-md"
@@ -410,18 +398,17 @@ export default function Users() {
                                     onChange={(e) => {
                                         if (e.target.files && e.target.files[0]) {
                                             const file = e.target.files[0];
-                                            const allowedTypes = ["image/jpeg", "image/png"]; // Valid MIME types
+                                            const allowedTypes = ["image/jpeg", "image/png"]; 
 
                                             if (!allowedTypes.includes(file.type)) {
-                                                alert("Please select a valid image file (JPG or PNG).");
+                                                toast.error("Please select a valid image file (JPG or PNG).")
                                                 return;
                                             }
 
-                                            // Generate preview and update form data
                                             setFormData((prevData) => ({
                                                 ...prevData,
-                                                profileImage: file, // Store the actual file
-                                                profilePreview: URL.createObjectURL(file), // Generate preview URL
+                                                profileImage: file, 
+                                                profilePreview: URL.createObjectURL(file), 
                                             }));
                                         }
                                     }}
@@ -508,16 +495,14 @@ export default function Users() {
             <div className="users">
                 <div className="users-search-add-user   md:w-4/5 w-full  md:flex gap-2 justify-between items-center mb-6 ">
                     <div className="search md:w-3/4 w-full   relative">
-                        {/* Input Field */}
                         <input
-                            className="w-full h-12 border-2 rounded-lg ps-24 my-4" // Add padding to make space for the dropdown button
+                            className="w-full h-12 border-2 rounded-lg ps-24 my-4"
                             type="search"
                             placeholder={`Search users...`}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
 
-                        {/* Dropdown Button */}
                         <div
                             className="absolute top-1/2 left-0 rounded-md transform bg-slate-100 px-2 py-3 -translate-y-1/2 flex items-center cursor-pointer text-gray-600"
                             onClick={toggleDropdown}
@@ -539,7 +524,6 @@ export default function Users() {
                             </svg>
                         </div>
 
-                        {/* Dropdown Menu */}
                         {isDropdownVisible && (
                             <div className="role-drpdwn absolute top-full left-0 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-10">
                                 {roles.map((role) => (
@@ -572,7 +556,6 @@ export default function Users() {
                             key={index}
                             className="h-[200px] rounded-md flex flex-col justify-center animate-pulse shadow-lg"
                         >
-                            {/* Skeleton content */}
                             <div className="relative flex w-64 animate-pulse gap-2 p-4">
                                 <div className="h-12 w-12 rounded-full bg-slate-400"></div>
                                 <div className="flex-1">
@@ -590,7 +573,7 @@ export default function Users() {
                             joinDate={new Date(user.created_at).toLocaleDateString() || "Unknown"}
                             email={user.email || "N/A"}
                             phone={user.phone || "N/A"}
-                            profileImg={user.profile_image || prog} // Use placeholder if no profile image
+                            profileImg={user.profile_image || prog}
                             onDelete={() => handleDeleteClick(user)}
                             onUpdate={() => handleUpdateClick(user)}
 

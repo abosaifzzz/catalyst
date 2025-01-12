@@ -9,16 +9,15 @@ import DeleteForm from "../../Components/DeleteForm/DeleteForm.jsx";
 export default function AdminProperties() {
     const { properties, loading, fetchProperties } = useProperties();
     const [currentPage, setCurrentPage] = useState(1);
-    const [newLoading, setNewLoading] = useState(false); // Loading state
-    const [showUpdateForm, setShowUpdateForm] = useState(false); // Show/hide update form
+    const [newLoading, setNewLoading] = useState(false); 
+    const [showUpdateForm, setShowUpdateForm] = useState(false); 
 
 
-    const [selectedProperty, setSelectedProperty] = useState(null); // Store property to delete
-    const [showDeleteForm, setShowDeleteForm] = useState(false); // Control visibility of DeleteForm
-
+    const [selectedProperty, setSelectedProperty] = useState(null); 
+    const [showDeleteForm, setShowDeleteForm] = useState(false); 
 
     const itemsPerPage = 8;
-    const [showForm, setShowForm] = useState(false); // State to toggle form visibility
+    const [showForm, setShowForm] = useState(false); 
     const [imagesPreview, setImagesPreview] = useState([]);
     const [videoPreview, setVideoPreview] = useState(null);
     const [updateFormData, setUpdateFormData] = useState({
@@ -26,17 +25,16 @@ export default function AdminProperties() {
         description: "",
         price: "",
         location: "",
-        images: [], // Array for new images
-        video: null, // For new video
+        images: [], 
+        video: null, 
     });
-    const [updateImagesPreview, setUpdateImagesPreview] = useState([]); // Previews for update form
-    const [updateVideoPreview, setUpdateVideoPreview] = useState(null); // Video preview for update form
+    const [updateImagesPreview, setUpdateImagesPreview] = useState([]);
+    const [updateVideoPreview, setUpdateVideoPreview] = useState(null); 
 
 
     const handleUpdate = (property) => {
-        setSelectedProperty(property); // Set the selected property for updating
-        setShowUpdateForm(true); // Show the update form
-    };
+        setSelectedProperty(property); 
+        setShowUpdateForm(true);     };
 
     useEffect(() => {
         if (selectedProperty) {
@@ -45,11 +43,10 @@ export default function AdminProperties() {
                 description: selectedProperty.description || "",
                 price: selectedProperty.price || "",
                 location: selectedProperty.location || "",
-                images: [], // Leave empty for new uploads
-                video: null, // Leave empty for new uploads
+                images: [], 
+                video: null, 
             });
 
-            // Set previews for existing images
             setUpdateImagesPreview(selectedProperty.images || []);
             setUpdateVideoPreview(selectedProperty.video ? selectedProperty.video : null);
         }
@@ -61,14 +58,14 @@ export default function AdminProperties() {
         description: "",
         price: "",
         location: "",
-        images: [], // Initialize as an array for multiple files
-        video: null, // Initialize as null for a single file
+        images: [], 
+        video: null, 
     });
     const handleUpdateFileChange = (e) => {
         const { name, files } = e.target;
 
         if (name.startsWith("updateImage")) {
-            const index = parseInt(name.replace("updateImage", ""), 10); // Extract index
+            const index = parseInt(name.replace("updateImage", ""), 10); 
             const file = files[0];
 
             if (file) {
@@ -76,12 +73,12 @@ export default function AdminProperties() {
                 reader.onload = () => {
                     setUpdateImagesPreview((prev) => {
                         const updatedPreviews = [...prev];
-                        updatedPreviews[index] = reader.result; // Update specific preview
+                        updatedPreviews[index] = reader.result; 
                         return updatedPreviews;
                     });
                     setUpdateFormData((prevData) => {
                         const updatedImages = [...prevData.images];
-                        updatedImages[index] = file; // Update specific file
+                        updatedImages[index] = file; 
                         return { ...prevData, images: updatedImages };
                     });
                 };
@@ -90,36 +87,33 @@ export default function AdminProperties() {
         } else if (name === "updateVideo") {
             const file = files[0];
             if (file) {
-                setUpdateVideoPreview(URL.createObjectURL(file)); // Update video preview
+                setUpdateVideoPreview(URL.createObjectURL(file)); 
                 setUpdateFormData((prevData) => ({
                     ...prevData,
-                    video: file, // Update video in formData
+                    video: file, 
                 }));
             }
         }
     };
 
 
-    const userId = 346; // Static user ID
+    const userId = 346; 
     const handleDelete = (property) => {
-        console.log("ckiii");
 
-        setSelectedProperty(property); // Set the property to be deleted
-        setShowDeleteForm(true); // Show the DeleteForm
+        setSelectedProperty(property); 
+        setShowDeleteForm(true); 
     };
 
     const confirmDelete = async () => {
         if (!selectedProperty) return;
 
         try {
-            console.log(selectedProperty.id);
 
             await axios.delete(`https://test.catalystegy.com/public/api/properties/${selectedProperty.id}`);
 
             toast.success(`Property "${selectedProperty.name}" deleted successfully!`);
-            // setProperties((prev) => prev.filter((p) => p.id !== selectedProperty.id)); // Update state
-            setShowDeleteForm(false); // Hide the DeleteForm
-            setSelectedProperty(null); // Reset selected property
+            setShowDeleteForm(false); 
+            setSelectedProperty(null); 
             await fetchProperties()
         } catch (error) {
             console.error("Error deleting property:", error);
@@ -129,10 +123,10 @@ export default function AdminProperties() {
 
 
     const handleToggleForm = () => {
-        setShowForm((prev) => !prev); // Toggle the visibility of the form
+        setShowForm((prev) => !prev); 
     };
     const handleUpdateSave = async () => {
-        if (!selectedProperty) return; // Ensure a property is selected for update
+        if (!selectedProperty) return; 
 
         const payload = new FormData();
         payload.append("name", updateFormData.name);
@@ -140,20 +134,18 @@ export default function AdminProperties() {
         payload.append("price", updateFormData.price);
         payload.append("location", updateFormData.location);
 
-        // Append new images
         if (updateFormData.images.length > 0) {
             updateFormData.images.forEach((file) => {
                 payload.append("images[]", file);
             });
         }
 
-        // Append new video
         if (updateFormData.video) {
             payload.append("video", updateFormData.video);
         }
 
         try {
-            setNewLoading(true); // Start loading
+            setNewLoading(true); 
             const response = await axios.post(
                 `https://test.catalystegy.com/public/api/properties/${selectedProperty.id}`,
                 payload,
@@ -167,15 +159,15 @@ export default function AdminProperties() {
             console.log("Property updated successfully:", response.data);
             toast.success("Property updated successfully!");
 
-            setShowUpdateForm(false); // Hide the update form
-            setSelectedProperty(null); // Reset the selected property
+            setShowUpdateForm(false); 
+            setSelectedProperty(null); 
             await fetchProperties();
 
         } catch (error) {
             console.error("Error updating property:", error.response?.data || error.message);
             toast.error("Failed to update property. Please try again.");
         } finally {
-            setNewLoading(false); // End loading
+            setNewLoading(false); 
         }
     };
 
@@ -202,9 +194,8 @@ export default function AdminProperties() {
     const handleFileChange = (e) => {
         const { name, files } = e.target;
 
-        // Handle image file changes
         if (name.startsWith("image")) {
-            const index = parseInt(name.replace("image", ""), 10); // Extract index from name (e.g., image0, image1)
+            const index = parseInt(name.replace("image", ""), 10); 
             const file = files[0];
 
             if (file) {
@@ -212,12 +203,12 @@ export default function AdminProperties() {
                 reader.onload = () => {
                     setImagesPreview((prev) => {
                         const updatedPreviews = [...prev];
-                        updatedPreviews[index] = reader.result; // Update specific image preview
+                        updatedPreviews[index] = reader.result; 
                         return updatedPreviews;
                     });
                     setFormData((prevData) => {
                         const updatedImages = [...prevData.images];
-                        updatedImages[index] = file; // Update specific image in formData
+                        updatedImages[index] = file; 
                         return { ...prevData, images: updatedImages };
                     });
                 };
@@ -225,15 +216,14 @@ export default function AdminProperties() {
             }
         }
 
-        // Handle video file changes
-        else if (name === "video") {
+=        else if (name === "video") {
             const file = files[0];
             if (file) {
-                setVideoPreview(URL.createObjectURL(file)); // Update video preview
-                setFormData((prevData) => ({
+                setVideoPreview(URL.createObjectURL(file));     
+                            setFormData((prevData) => ({
                     ...prevData,
-                    video: file, // Update video in formData
-                }));
+                    video: file, 
+                                }));
             }
         }
     };
@@ -248,20 +238,17 @@ export default function AdminProperties() {
         payload.append("price", formData.price);
         payload.append("location", formData.location);
 
-        // Append images
         if (formData.images.length > 0) {
             formData.images.forEach((file) => {
-                payload.append("images[]", file); // Multiple files as an array
+                payload.append("images[]", file); 
             });
         }
 
-        // Append video
         if (formData.video) {
-            payload.append("video", formData.video); // Single video file
-        }
+            payload.append("video", formData.video);         }
 
         try {
-            setNewLoading(true); // Start loading
+            setNewLoading(true); 
 
             const response = await axios.post(
                 "https://test.catalystegy.com/public/api/properties",
@@ -274,10 +261,9 @@ export default function AdminProperties() {
             );
             console.log("Property added successfully:", response.data);
             toast.success("Property Added Successfully")
-            handleToggleForm(); // Close the form
+            handleToggleForm(); 
         } catch (error) {
             console.error("Error adding property:", error.response?.data || error.message);
-            alert("Failed to add property. Please try again.");
         }
         for (let [key, value] of payload.entries()) {
             console.log(`${key}:`, value);
@@ -296,7 +282,7 @@ export default function AdminProperties() {
                 className={`add-property-form ${showForm ? "flex" : "hidden"
                     } fixed justify-center items-center inset-0 bg-black/30 z-20`}
             >
-                <div className="add-form relative md:w-2/5 w-4/5 h-4/6 p-4 rounded-md bg-white">
+                <div className="add-form relative md:w-2/5 w-4/5 h-fit p-4 rounded-md bg-white">
                     <div
                         onClick={handleToggleForm}
                         className="exit cursor-pointer absolute text-lg top-3 left-4"
@@ -337,7 +323,6 @@ export default function AdminProperties() {
                             </label>
                         ))}
 
-                        {/* Video Input */}
                         <label className="property-video border border-gray-400 border-dashed hover:border-gray-300 flex flex-col justify-center items-center lg:w-32 lg:h-32 md:w-28 md:h-28 sm:w-24 sm:h-24 w-20 h-20 bg-gray-100 cursor-pointer rounded-md">
                             <input
                                 type="file"
@@ -439,7 +424,7 @@ export default function AdminProperties() {
             </div>
             {showUpdateForm && (
                 <div className={`update-property-form fixed flex justify-center items-center inset-0 bg-black/30 z-20`}>
-                    <div className="update-form relative md:w-2/5 w-4/5 h-4/6 p-4 rounded-md bg-white">
+                    <div className="update-form relative md:w-2/5 w-4/5 h-fit p-4 rounded-md bg-white">
                         <div
                             onClick={() => setShowUpdateForm(false)}
                             className="exit cursor-pointer absolute text-lg top-3 left-4"
@@ -569,7 +554,6 @@ export default function AdminProperties() {
             )}
 
 
-            {/* Add New Property Button */}
 
 
 
@@ -581,7 +565,7 @@ export default function AdminProperties() {
             {showDeleteForm && (
                 <DeleteForm
                     deleteFn={confirmDelete}
-                    deletedData={selectedProperty?.name} // Pass the property name
+                    deletedData={selectedProperty?.name} 
                     closeFn={() => { setShowDeleteForm(false) }}
                 />
             )}
@@ -594,10 +578,9 @@ export default function AdminProperties() {
                 currentPage={currentPage}
                 itemsPerPage={itemsPerPage}
                 handleClick={(id) => console.log("Admin Property Click", id)}
-                isAdmin={true} // Enable admin-specific actions
+                isAdmin={true} 
                 onUpdate={handleUpdate}
-                onDelete={handleDelete} // Pass the handleDelete function
-            />
+                onDelete={handleDelete}             />
             <div className="pagination pb-5 flex justify-center items-center gap-4 mt-6">
                 <button
                     className={`px-4 py-2 bg-slate-200 rounded-md ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
@@ -628,3 +611,5 @@ export default function AdminProperties() {
         </div >
     </>
 }
+
+

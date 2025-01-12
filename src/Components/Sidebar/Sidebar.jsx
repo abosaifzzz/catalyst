@@ -10,10 +10,8 @@ export default function Sidebar({ isSidebarVisible, setSidebarVisible, toggleSid
             }
         };
 
-        // Add event listener for window resize
         window.addEventListener("resize", handleResize);
 
-        // Cleanup event listener on unmount
         return () => {
             window.removeEventListener("resize", handleResize);
         };
