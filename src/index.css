@@ -1,0 +1,297 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+.dancing {
+  font-family: "Dancing Script", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+.comfort {
+  font-family: "Comfortaa", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.baloo {
+  font-family: "Baloo 2", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+.welcome-badge {
+  border-radius: 15px;
+  position: relative;
+  background-image: url("../src/assets/5.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.toggle {
+  background-image: url("../src/assets/tr.jpg");
+  background-size: cover;
+  background-position: center;
+  color: #00f;
+}
+.sidebar {
+  background-image: url("../src/assets/tr.jpg");
+}
+
+@media only screen and (max-width: 950px) {
+}
+
+.welcome-data {
+  border-radius: 15px;
+
+  background: rgb(35, 118, 153);
+  background: linear-gradient(
+    0deg,
+    rgba(35, 118, 153, 0.6083683473389356) 4%,
+    rgba(70, 70, 70, 0.10976890756302526) 44%
+  );
+}
+/* styles.css or your main CSS file */
+
+/* Position the dots over the image */
+.property-card .slick-dots {
+  @apply absolute bottom-2 left-1/2 transform -translate-x-1/2 z-10;
+}
+
+.property-card .slick-dots li button:before {
+  @apply text-white;
+}
+
+.property-card .slick-dots li.slick-active button:before {
+  @apply text-slate-50;
+}
+
+/* Position the arrows over the image */
+.property-card .slick-prev,
+.property-card .slick-next {
+  @apply absolute top-1/2 transform -translate-y-1/2 z-10 opacity-0 transition-opacity duration-300;
+}
+
+.property-card .slick-prev {
+  @apply left-2;
+}
+
+.property-card .slick-next {
+  @apply right-2;
+}
+
+.property-card .slick-prev:before,
+.property-card .slick-next:before {
+  @apply text-slate-200 text-2xl;
+}
+
+/* Show arrows on hover */
+.property-card:hover .slick-prev,
+.property-card:hover .slick-next {
+  @apply opacity-100;
+}
+
+/* Center dots within the image */
+.slick-dots {
+  position: absolute;
+  bottom: 10px; /* Adjust to position dots closer to the bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.slick-dots li button:before {
+  font-size: 5px;
+  color: white; /* Change to white for better visibility */
+}
+
+.slick-dots li.slick-active button:before {
+  color: #00f; /* Active dot color */
+}
+
+/* Position arrows absolutely on the image */
+.slick-prev,
+.slick-next {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%);
+  z-index: 10; /* Ensure above the image */
+  font-size: 5px; /* Adjust arrow size */
+  color: white; /* White color for better contrast */
+}
+
+.slick-prev {
+  left: 10px; /* Position arrow on the left */
+}
+
+.slick-next {
+  right: 10px; /* Position arrow on the right */
+}
+@media only screen and (max-width: 1550px) {
+  .book {
+    @apply w-5/6;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .name-price2 {
+    @apply block;
+  }
+  .price2 {
+    @apply w-fit;
+  }
+  .names-reviews {
+    @apply w-full;
+  }
+  .welcome-badge {
+    border-radius: 15px;
+    position: relative;
+    background-image: url("../src/assets/5.jpg");
+    background-size: cover;
+    background-position: 90%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  .shape1 {
+    @apply -right-36;
+
+    img {
+      @apply w-44;
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .welcome-badge {
+    border-radius: 15px;
+    position: relative;
+    background-image: url("../src/assets/5.jpg");
+    background-size: cover;
+    background-position: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  .shape1 {
+    @apply -right-24;
+
+    img {
+      @apply w-32;
+    }
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .book {
+    @apply w-full;
+  }
+
+  .location-t {
+    @apply text-xs;
+  }
+  .shape1 {
+    @apply hidden;
+
+    img {
+      @apply w-32;
+    }
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .location-price {
+    @apply block;
+  }
+  .location-t {
+    @apply text-xs;
+  }
+  .shape1 {
+    @apply hidden;
+
+    img {
+      @apply w-32;
+    }
+  }
+}
+.e-card {
+  margin: 100px auto;
+  background: #2d64a9;
+  box-shadow: 0px 8px 28px -9px rgba(0, 0, 0, 0.45);
+  position: relative;
+  /* width: 240px; */
+  /* height: 330px; */
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.wave2 {
+  position: absolute;
+  /* width: 540px; */
+  /* height: 700px; */
+  opacity: 0.6;
+  right: 0;
+  top: 0;
+  margin-right: -50%;
+  margin-top: -70%;
+
+  background: linear-gradient(744deg, #40b6ff, #8ff2fb 60%, #00ddeb);
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 100;
+  position: relative;
+  top: 1em;
+  text-transform: lowercase;
+}
+
+.wave2:nth-child(2),
+.wave2:nth-child(3) {
+  top: 210px;
+}
+
+.playing .wave2 {
+  border-radius: 40%;
+  animation: wave 3000ms infinite linear;
+}
+
+.wave2 {
+  border-radius: 40%;
+  animation: wave 55s infinite linear;
+}
+
+.playing .wave2:nth-child(2) {
+  animation-duration: 4000ms;
+}
+
+.wave2:nth-child(2) {
+  animation-duration: 50s;
+}
+
+.playing .wave2:nth-child(3) {
+  animation-duration: 5000ms;
+}
+
+.wave2:nth-child(3) {
+  animation-duration: 45s;
+}
+
+@keyframes wave {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 1700px) and (max-height: 730px) {
+  .slogan1 {
+    font-size: 35px !important;
+  }
+}
